@@ -1,0 +1,28 @@
+<section class="section">
+	<div class="container">
+		<div class="columns is-centered">
+			<div class="column is-9">
+				<h1 class="title is-2"><%= @room.room_no %></h1>
+				<div class="level form-group">
+					<div class="level-left control">
+						<p>Created on
+							<%= @room.created_at %> by <%#= @room.user.name %>Manager / Modified
+							<%= time_ago_in_words(@room.updated_at) %></p>
+					</div>
+					
+						<div class="level-left control">
+							<%= link_to 'Edit room', edit_room_path(@room), class:'button' %>
+							<%= link_to 'Delete room', @room, method: :delete, data: { confirm: 'Are you sure'}, class:'button is-danger is-outlined' %> 
+							<br/>
+							<%= link_to '<---Back', rooms_path, class:'button' %>
+						</div>
+					
+				</div>
+				<hr />
+				<div class="content">
+					<%#= @room.description.html_safe %>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

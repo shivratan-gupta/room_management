@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Holidays</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th colspan="5" class="text-center">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @holidays.each do |holiday| %>
+      <tr>
+        <td><%= holiday.title %></td>
+        <td><%= holiday.holiday_date %></td>
+        <!-- <td><%#= link_to 'Show', holiday %></td> -->
+        <td><%= link_to 'Edit', edit_holiday_path(holiday) %></td>
+        <td><%= link_to 'Destroy', holiday, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= paginate @holidays, theme: 'my_custom_theme' %>
+<br/>
+
+<%= link_to 'New holidays', new_holiday_path %>

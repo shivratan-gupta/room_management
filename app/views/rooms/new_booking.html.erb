@@ -1,0 +1,74 @@
+<%= form_for(@booking, url: create_booking_room_path) do |f| %>
+
+ <% if @booking.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@booking.errors.count, "error") %> prohibited
+        this booking from being saved:
+      </h2>
+      <ul>
+        <% @booking.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <div class="row">
+      <div class="col-sm-4">
+       <%= f.hidden_field :user_id, value: 1, class: "input form-control" %>
+       <div class="field form-group">
+          <div class="control">
+            <%= f.label  :room_id %>
+            <%= f.select :room_id, Room.all.collect {|p| [ p.room_no, p.id ]}, { :prompt => 'Select Room'}, class: "input form-control" %>
+          </div>
+       </div>
+       <div class="field form-group">
+             <%= f.label  "booking date & time" %>
+           <div class='input-group date' id='datetimepicker'>
+             <%= f.text_field :booked_date, class: "input form-control" %>
+               <span class="input-group-addon">
+                   <span class="glyphicon glyphicon-calendar"></span>
+               </span>
+          </div>
+       </div>
+       <div class="field form-group">
+       	<div class="control ">
+          <%= f.label  :duration %> (In Minutes)
+       		<%= f.text_field :duration, class: "input form-control" %>
+          <%# f.time_select :duration, {:minute_step => 30, :ampm => true},class: "input form-control" %>
+
+       	</div>
+<!--         <div class="control col-sm-4">
+          <%#= f.label  :duration %> (In Minutes)
+          <%#= f.text_field :duration, class: "input form-control" %>
+          <%#= f.time_select :duration, {:minute_step => 30, :ampm => true},class: "input form-control" %>
+
+        </div> -->
+       </div>
+       <div class="field">
+       	<div class="control">
+       		<%= f.submit :submit, class: "button is-link btn btn-info" %>
+       	</div>
+       </div>
+      </div>
+   </div>
+
+<% end %>
+<script type="text/javascript">
+   $(function () {
+      var date = new Date();
+      date.setDate(date.getDate());
+
+
+      $('#datetimepicker').datetimepicker({
+        daysOfWeekDisabled: [0, 6]
+        //minDate: new Date()
+      });
+       
+      $('#datetimepicker1').datetimepicker({
+        daysOfWeekDisabled: [0, 6]
+        //minDate: new Date()
+      });
+   });
+</script>

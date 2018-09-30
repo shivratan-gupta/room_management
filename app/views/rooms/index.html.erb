@@ -1,5 +1,33 @@
-<%= form_tag "rooms" %>
-enter url to shortern
-<%= text_field_tag "url"  %>
-<%= submit_tag "submit" %>
-<%# end %>
+<p id="notice"><%= notice %></p>
+
+<h1>Rooms</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Facilities</th>
+      <th colspan="5" class="text-center">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rooms.each do |room| %>
+      <tr>
+        <td><%= room.room_no %></td>
+        <td><%= room.fascilities.pluck(:name).join(',')%></td>
+        <td><%= link_to 'Show', room %></td>
+        <td><%= link_to 'Book This Room', new_booking_room_path(room) %></td>
+        <td><%= link_to 'Add new facility', new_room_fascility_path(room) %></td>
+        <td><%= link_to 'Edit', edit_room_path(room) %></td>
+        <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= paginate @rooms, theme: 'my_custom_theme' %>
+<br/>
+
+<%= link_to 'New room', new_room_path %>
