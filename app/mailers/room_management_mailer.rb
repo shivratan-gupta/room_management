@@ -1,6 +1,6 @@
 class RoomManagementMailer < ApplicationMailer
 
-	default from: 'notifications@example.com'
+	default from: 'shiv58ratan@gmail.com'
  
 	  def booking_confirmation(user)
 	    @user = user
