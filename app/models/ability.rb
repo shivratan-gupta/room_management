@@ -4,12 +4,11 @@ class Ability
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-    binding.pry
       user ||= User.new # guest user (not logged in)
-      if user.role?(:admin)
+      if user.role_declare == "admin"
         can :manage, :all
-      elsif user.role?(:user)
-        can :manage,Booking
+      elsif user.role_declare == "user"
+        can :manage, Booking
       else
         can :read, :all
       end

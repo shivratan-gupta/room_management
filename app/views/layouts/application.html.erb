@@ -18,7 +18,9 @@
         <div id="navbar">
           <ul class="nav navbar-nav">
             <li><%= link_to 'Room Booking', rooms_path %></li>
-            <li><%= link_to 'Declare Holiday', holidays_path %></li>
+            <% if can? :index, Holiday %>
+              <li><%= link_to 'Declare Holiday', holidays_path %></li>
+            <% end %>
           </ul>
         </div>
         <ul class="nav navbar-nav pull-right">
@@ -62,7 +64,7 @@
         </div>
       </div>
     </nav>
-    <p class="notice"><%= notice %></p>
+    <p class="notice"><%#= notice %></p>
     <p class="alert"><%= alert %></p>
     <div class="container">
       <%= yield %>

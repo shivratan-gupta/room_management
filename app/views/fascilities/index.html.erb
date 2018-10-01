@@ -27,5 +27,6 @@
 <br>
 <%= paginate @fascilities, theme: 'my_custom_theme' %>
 <br/>
-
-<%= link_to 'New facility', new_room_fascility_path %>
+<% if can? :new, Fascility %>
+  <%= link_to 'New facility', new_room_fascility_path %>
+<% end %>

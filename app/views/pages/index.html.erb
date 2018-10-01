@@ -31,4 +31,6 @@
 <br>
 <%= paginate @bookings, theme: 'my_custom_theme' %>
 <br/>
-<%= link_to 'Add New room', new_room_path, class: 'btn btn-primary' %>
+<% if can? :new, Room %>
+  <%= link_to 'Add New room', new_room_path, class: 'btn btn-primary' %>
+<% end %>

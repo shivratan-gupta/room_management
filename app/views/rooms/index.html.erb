@@ -18,7 +18,9 @@
         <td><%= room.fascilities.pluck(:name).join(',')%></td>
         <td><%= link_to 'Show', room %></td>
         <td><%= link_to 'Book This Room', new_booking_room_path(room) %></td>
-        <td><%= link_to 'Add new facility', new_room_fascility_path(room) %></td>
+        <% if can? :new, Fascility %>
+          <td><%= link_to 'See facility List', room_fascilities_path(room) %></td>
+        <% end %>
         <td><%= link_to 'Edit', edit_room_path(room) %></td>
         <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -29,5 +31,6 @@
 <br>
 <%= paginate @rooms, theme: 'my_custom_theme' %>
 <br/>
-
-<%= link_to 'New room', new_room_path %>
+<% if can? :new, Room %>
+  <%= link_to 'New room', new_room_path %>
+<% end %>

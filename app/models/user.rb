@@ -7,16 +7,16 @@ class User < ApplicationRecord
   has_many :bookings
 
 
-  ROLES = {0 => :guest, 1 => :user, 2 => :moderator, 3 => :admin}
+  ROLES = {0 => "guest", 1 => "user", 2 => "admin"}
 
   attr_reader :role
 
-  def initialize(role_id = 0)
-    @role = ROLES.has_key?(role_id.to_i) ? ROLES[role_id.to_i] : ROLES[0]
-  end
+  # def initialize(role_id = 0)
+  #   @role = ROLES.has_key?(role_id.to_i) ? ROLES[role_id.to_i] : ROLES[0]
+  # end
 
-  def role?(role_name)
-    role == role_name
+  def role_declare
+    @role = ROLES.has_key?(self["role"].to_i) ? ROLES[self["role"].to_i] : ROLES[0]
   end
   
 end
