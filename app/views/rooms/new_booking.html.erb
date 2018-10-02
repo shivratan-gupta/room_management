@@ -38,9 +38,9 @@
           <%= f.label  :duration %> (In Minutes)
        		<%= f.text_field :duration, class: "input form-control" %>
           <%# f.time_select :duration, {:minute_step => 30, :ampm => true},class: "input form-control" %>
+          <%= f.hidden_field :end_date, class: "input form-control" %>
 
-       	</div>
-        <%= f.hidden_field :end_date, class: "input form-control" %>
+        </div>
 <!--         <div class="control col-sm-4">
           <%#= f.label  :duration %> (In Minutes)
           <%#= f.text_field :duration, class: "input form-control" %>
