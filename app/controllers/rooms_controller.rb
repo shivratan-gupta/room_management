@@ -72,9 +72,15 @@ class RoomsController < ApplicationController
 		@bookings = Booking.where(:room_id => booking_params[:room_id],:booked_date => booking_params[:booked_date])
 		respond_to do |format|
       if @booking.save
-      	RoomManagementMailer.booking_confirmation(@user).deliver
-        format.html { redirect_to rooms_path, :flash=> {notice: 'Room has been booked.' }}
-        format.json { render :index, status: :created, location: rooms_path }
+      	if @booking[:status].to_i != 0
+      		RoomManagementMailer.booking_confirmation_for_waiting(@user,@booking).deliver
+      		format.html { redirect_to rooms_path, :flash=> {notice: "Room can't be booked, As this time slot is already booked. You are in Queue, Once earlier record get cancelled then you will get the room booking confirmation" }}
+      		format.json { render :index, status: :created, location: rooms_path }
+      	else
+      		RoomManagementMailer.booking_confirmation(@user).deliver
+        	format.html { redirect_to rooms_path, :flash=> {notice: 'Room has been booked.' }}
+        	format.json { render :index, status: :created, location: rooms_path }
+      	end
       else
         format.html { render :new_booking }
         format.json { render json: @booking, status: :unprocessable_entity }
@@ -103,6 +109,7 @@ class RoomsController < ApplicationController
   	@user = current_user
 		@booking = Booking.find(params[:id])
     @booking.destroy
+    SendMailWorker.perform_async(@booking.booked_date,@booking.end_date,@booking.room_id,@booking.status,@user.id)
     RoomManagementMailer.booking_cancelation(@user).deliver
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Booking was successfully destroyed.' }
@@ -119,6 +126,16 @@ private
   	params[:booking][:booked_date] = Time.parse(params[:booking][:booked_date]).strftime '%d/%m/%Y %I:%M %p'
   	date = Time.parse(params[:booking][:booked_date]) + (params[:booking][:duration].to_i * 60)
   	params[:booking][:end_date] = date.strftime '%d/%m/%Y %I:%M %p'
-    params.require(:booking).permit(:room_id, :user_id, :booked_date, :duration,:end_date)
+
+  	st_time_for_query = Time.parse(params[:booking][:booked_date]).strftime '%Y-%m-%d %H:%M:%S'
+  	ed_time_for_query = Time.parse(params[:booking][:end_date]).strftime '%Y-%m-%d %H:%M:%S'
+  	start_bookings = Booking.where('room_id = ? and booked_date <= ? and end_date >= ?',params[:booking][:room_id],st_time_for_query,st_time_for_query)
+    end_bookings = Booking.where('room_id = ? and booked_date <= ? and end_date >= ?',params[:booking][:room_id],ed_time_for_query,ed_time_for_query)
+    if start_bookings.present? || end_bookings.present?
+    	params[:booking][:status] = 	start_bookings.last.status.to_i + 1
+    else
+    	params[:booking][:status] = 0
+    end
+    params.require(:booking).permit(:room_id, :user_id, :booked_date, :duration,:end_date,:status)
   end
 end

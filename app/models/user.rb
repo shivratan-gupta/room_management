@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :bookings
 
 
-  ROLES = {0 => "guest", 1 => "user", 2 => "admin"}
+  ROLES = {0 => "Guest", 1 => "User", 2 => "Admin"}
 
   attr_reader :role
 

@@ -2,9 +2,9 @@ class Booking < ApplicationRecord
   belongs_to :room
   belongs_to :user
 
-  validate :time_slot
+  # validate :time_slot
   validate :check_holiday
-
+  STATUS = {0 => "Confirmed"}
   private
 
   def time_slot
