@@ -1,0 +1,10 @@
+= form_for(@room) do |f|
+  .row
+    .col-sm-4
+      .field.form-group
+        .control
+          = f.label  :room_no
+          = f.text_field :room_no, class: "input form-control"
+      .field.form-group
+        .control
+          = f.submit :submit, class: "button is-link btn btn-info"

@@ -1,0 +1,5 @@
+.section
+  .container
+    %h1.title.is-2 Editing facility
+    = render 'form', room: @room, fascility: @fascility
+  = link_to '<--Back', room_fascilities_path, class:'button btn btn-link'

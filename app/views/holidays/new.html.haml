@@ -1,0 +1,6 @@
+.section
+  .container
+    %h1.title.is-2 New holiday
+    = render 'form', holiday: @holiday
+    %br/
+    = link_to '<--Back', holidays_path, class:'button btn btn-link'

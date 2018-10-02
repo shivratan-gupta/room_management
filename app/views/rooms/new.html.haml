@@ -1,0 +1,6 @@
+.section
+  .container
+    %h1.title.is-2 New room
+    = render 'form', room: @room
+    %br/
+    = link_to '<--Back', rooms_path, class:'button btn btn-link'

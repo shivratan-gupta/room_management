@@ -1,0 +1,52 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title RoomManagement
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %nav.navbar.navbar-inverse
+      .container
+        .navbar-header
+          = link_to 'Room Management', root_path, class: 'navbar-brand'
+        #navbar
+          %ul.nav.navbar-nav
+            %li= link_to 'Room Booking', rooms_path
+            - if can? :index, Holiday
+              %li= link_to 'Declare Holiday', holidays_path
+        %ul.nav.navbar-nav.pull-right
+          - if user_signed_in?
+            %li.dropdown
+              %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                = current_user.full_name.humanize
+                %span.caret
+              %ul.dropdown-menu{:role => "menu"}
+                %li= link_to 'Profile', edit_user_registration_path
+                %li= link_to 'Log out', destroy_user_session_path, method: :delete
+          - else
+            %li= link_to 'Log In', new_user_session_path
+            %li= link_to 'Sign Up', new_user_registration_path
+            /
+              <ul class="hmenu">
+              <haml_silent>
+              </haml_silent><haml_silent>
+              </haml_silent>            </ul>
+        - if params[:controller] == "rooms"
+          .col-sm-3.col-md-3.pull-right
+            = form_tag rooms_path, {method: :get, class: "navbar-form", role: "search"} do
+              /
+                <form class="navbar-form" role="search">
+              .input-group
+                = text_field_tag :query, nil, {class: "form-control", placeholder: "Search", id:"srch-term"}
+                / <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                .input-group-btn
+                  %button.btn.btn-default{:type => "submit"}
+                    %i.glyphicon.glyphicon-search
+            / </form>
+    %p.notice
+    %p.alert= alert
+    .container
+      = yield

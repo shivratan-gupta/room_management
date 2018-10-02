@@ -1,0 +1,25 @@
+%p#notice= notice
+%h1 Booked Rooms
+%table.table.table-striped
+  %thead
+    %tr
+      %th Booked Room
+      %th Booking Date
+      %th Booking Duartion (in mins)
+      %th Booked By
+      %th.text-center{:colspan => "5"} Action
+  %tbody
+    - @bookings.each do |booking|
+      %tr
+        %td= booking.room.try(:room_no)
+        %td= booking.booked_date
+        %td= booking.duration
+        %td= booking.user.full_name
+        %td
+        %td= link_to 'Edit', edit_booking_room_path(booking)
+        %td= link_to 'Cancel Booking', destroy_booking_room_path(booking), method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= paginate @bookings, theme: 'my_custom_theme'
+%br/
+- if can? :new, Room
+  = link_to 'Add New room', new_room_path, class: 'btn btn-primary'

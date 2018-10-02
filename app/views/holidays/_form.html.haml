@@ -1,0 +1,27 @@
+= form_for(@holiday) do |f|
+  .row
+    .col-sm-4
+      .field.form-group
+        .control
+          = f.label  :title
+          = f.text_field :title, class: "input form-control"
+      .field.form-group
+        = f.label  :holiday_date
+        #datetimepicker.input-group.date
+          = f.text_field :holiday_date, class: "input form-control"
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+      .field.form-group
+        .control
+          = f.submit :submit, class: "button is-link btn btn-info"
+:javascript
+  $(function () {
+     var date = $('#datetimepicker').val();
+     $('#datetimepicker').datetimepicker({
+      format: 'DD/MM/YYYY hh:mm A',
+       daysOfWeekDisabled: [0, 6],
+       useCurrent: false
+       
+     });
+      
+  });

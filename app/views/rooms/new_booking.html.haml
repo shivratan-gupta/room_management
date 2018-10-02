@@ -1,0 +1,58 @@
+= form_for(@booking, url: create_booking_room_path) do |f|
+  - if @booking.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@booking.errors.count, "error")
+        prohibited
+        this booking from being saved:
+      %ul
+        - @booking.errors.full_messages.each do |msg|
+          %li= msg
+  .row
+    .col-sm-4
+      = f.hidden_field :user_id, value: 1, class: "input form-control"
+      .field.form-group
+        .control
+          = f.label  :room_id
+          = f.select :room_id, options_for_select(Room.all.collect {|p| [ p.room_no, p.id ]}, @room_id), { :prompt => 'Select Room'}, class: "input form-control"
+      .field.form-group
+        = f.label  "booking date & time"
+        #datetimepicker.input-group.date
+          = f.text_field :booked_date, class: "input form-control"
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+      .field.form-group
+        .control
+          = f.label  :duration
+          (In Minutes)
+          \#{f.text_field :duration, class: "input form-control"}
+          = f.hidden_field :end_date, class: "input form-control"
+        /
+          <div class="control col-sm-4">
+          <haml_silent></haml_silent> (In Minutes)
+          <haml_silent>
+          </haml_silent><haml_silent>
+          </haml_silent>
+          </div>
+      .field
+        .control
+          = f.submit :submit, class: "button is-link btn btn-info"
+      = link_to '<--Back', rooms_path, class:'button btn btn-link'
+:javascript
+  $(function () {
+     var date = new Date();
+     date.setDate(date.getDate());
+
+
+     $('#datetimepicker').datetimepicker({
+       format: 'DD/MM/YYYY hh:mm A',
+       daysOfWeekDisabled: [0, 6]
+       //minDate: new Date()
+     });
+      
+     $('#datetimepicker1').datetimepicker({
+       format: 'DD/MM/YYYY hh:mm A',
+       daysOfWeekDisabled: [0, 6]
+       //minDate: new Date()
+     });
+  });

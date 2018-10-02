@@ -1,0 +1,19 @@
+%section.section
+  .container
+    .columns.is-centered
+      .column.is-9
+        %h1.title.is-2= @fascility.name
+        .level
+          .level-left
+            %p
+              Created on
+              \#{@fascility.created_at} by
+              Manager / Modified
+              \#{time_ago_in_words(@fascility.updated_at)}
+          .level-right
+            .buttons
+              = link_to 'Edit fascility', edit_room_fascility_path(@room, @fascility), class:'button'
+              = link_to 'Delete fascility', room_fascility_path(@room, @fascility), method: :delete, data: { confirm: 'Are you sure'}, class:'button is-danger is-outlined'
+          = link_to '<--Back', room_fascilities_path, class:'button btn btn-link'
+        %hr/
+        .content

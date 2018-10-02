@@ -1,0 +1,20 @@
+%p#notice= notice
+%h1 Holidays
+%table.table.table-striped
+  %thead
+    %tr
+      %th Title
+      %th Date
+      %th.text-center{:colspan => "5"} Action
+  %tbody
+    - @holidays.each do |holiday|
+      %tr
+        %td= holiday.title
+        %td= holiday.holiday_date
+        / <td><haml_silent></haml_silent></td>
+        %td= link_to 'Edit', edit_holiday_path(holiday)
+        %td= link_to 'Destroy', holiday, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= paginate @holidays, theme: 'my_custom_theme'
+%br/
+= link_to 'New holidays', new_holiday_path

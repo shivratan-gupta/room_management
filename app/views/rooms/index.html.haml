@@ -1,0 +1,24 @@
+%p#notice= notice
+%h1 Rooms
+%table.table.table-striped
+  %thead
+    %tr
+      %th Name
+      %th Facilities
+      %th.text-center{:colspan => "5"} Action
+  %tbody
+    - @rooms.each do |room|
+      %tr
+        %td= room.room_no
+        %td= room.fascilities.pluck(:name).join(',')
+        %td= link_to 'Show', room
+        %td= link_to 'Book This Room', new_booking_room_path(room)
+        - if can? :new, Fascility
+          %td= link_to 'See facility List', room_fascilities_path(room)
+        %td= link_to 'Edit', edit_room_path(room)
+        %td= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= paginate @rooms, theme: 'my_custom_theme'
+%br/
+- if can? :new, Room
+  = link_to 'Add New Room', new_room_path
