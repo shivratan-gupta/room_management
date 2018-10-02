@@ -1,11 +1,14 @@
 = form_with(model: [ @room, @fascility.new_record? ? @room.fascilities.build : @fascility ], local: true) do |f|
-  .field
-    .control
-      = f.label  :name
-      = f.text_field :name, class: "input"
-  .field
-    .control
-      = f.text_area :description, class: "input"
-  .field
-    .control
-      = f.submit :submit, class: "button is-link"
+  .row
+    .col-sm-4
+      .field.form-group
+        .control
+          = f.label  :name
+          = f.text_field :name, class: "input form-control"
+      .field.form-group
+        .control
+          = f.label  :description
+          = f.text_area :description, class: "input form-control"
+      .field.form-group
+        .control
+          = f.submit :submit, class: "button is-link btn btn-info"
