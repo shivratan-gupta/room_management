@@ -20,7 +20,8 @@
        <div class="field form-group">
           <div class="control">
             <%= f.label  :room_id %>
-            <%= f.select :room_id, Room.all.collect {|p| [ p.room_no, p.id ]}, { :prompt => 'Select Room'}, class: "input form-control" %>
+            <%#= f.select :room_id, Room.all.collect {|p| [ p.room_no, p.id ]}, { :prompt => 'Select Room'}, class: "input form-control" %>
+            <%= f.select :room_id, options_for_select(Room.all.collect {|p| [ p.room_no, p.id ]}, @room_id), { :prompt => 'Select Room'}, class: "input form-control" %>
           </div>
        </div>
        <div class="field form-group">
@@ -39,6 +40,7 @@
           <%# f.time_select :duration, {:minute_step => 30, :ampm => true},class: "input form-control" %>
 
        	</div>
+        <%= f.hidden_field :end_date, class: "input form-control" %>
 <!--         <div class="control col-sm-4">
           <%#= f.label  :duration %> (In Minutes)
           <%#= f.text_field :duration, class: "input form-control" %>
@@ -72,4 +74,7 @@
         //minDate: new Date()
       });
    });
+
+   
+
 </script>

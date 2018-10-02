@@ -62,6 +62,7 @@ class RoomsController < ApplicationController
 
   def new_booking
   	@booking = Booking.new
+  	@room_id = params["id"]
   end
 
   def create_booking
@@ -115,6 +116,9 @@ private
   end
 
   def booking_params
-    params.require(:booking).permit(:room_id, :user_id, :booked_date, :duration)
+  	params[:booking][:booked_date] = Time.parse(params[:booking][:booked_date]).strftime '%d/%m/%Y %I:%M %p'
+  	date = Time.parse(params[:booking][:booked_date]) + (params[:booking][:duration].to_i * 60)
+  	params[:booking][:end_date] = date.strftime '%d/%m/%Y %I:%M %p'
+    params.require(:booking).permit(:room_id, :user_id, :booked_date, :duration,:end_date)
   end
 end
