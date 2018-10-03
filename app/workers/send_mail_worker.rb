@@ -12,7 +12,11 @@ class SendMailWorker
 	    	if x.status != 0 and x.status.to_i > max_count
 	    		x.status = x.status.to_i - 1
 	    		x.save
-	    		RoomManagementMailer.booking_confirmation_for_waiting(@user,x).deliver
+	    		if x.status == 0
+	    			RoomManagementMailer.booking_confirmation(@user).deliver
+	    		else
+		    		RoomManagementMailer.update_booking_confirmation(@user,x).deliver
+		    	end
 	    	end
 	    end
 	end
@@ -21,7 +25,11 @@ class SendMailWorker
 	    	if x.status != 0 and x.status.to_i > max_count
 	    		x.status = x.status.to_i - 1
 	    		x.save
-	    		RoomManagementMailer.booking_confirmation_for_waiting(@user,x).deliver
+	    		if x.status == 0
+	    			RoomManagementMailer.booking_confirmation(@user).deliver
+	    		else
+		    		RoomManagementMailer.update_booking_confirmation(@user,x).deliver
+		    	end
 	    	end
 	    end
 	end

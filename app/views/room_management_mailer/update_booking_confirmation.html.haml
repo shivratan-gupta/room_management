@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h3
+      Welcome to #{@app_name}, #{@user.full_name}
+    %p
+      Congratulations.
+      %br/
+       Your booking status is updated to waitlist no - #{@booking.status}. Once the Earlier user cancelled there booking for this time slot then you will get the Room Booking.
+      %br/
+    %p
+      To login to the site, just follow this link: #{@url}.
+    %p Thanks for Booking and have a great day!

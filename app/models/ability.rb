@@ -5,9 +5,9 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
       user ||= User.new # guest user (not logged in)
-      if user.role_declare == "admin"
+      if user.role_declare == "Admin"
         can :manage, :all
-      elsif user.role_declare == "user"
+      elsif user.role_declare == "User"
         can :manage, Booking
       else
         can :read, :all
