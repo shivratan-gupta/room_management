@@ -10,7 +10,7 @@
           %li= msg
   .row
     .col-sm-4
-      = f.hidden_field :user_id, value: 1, class: "input form-control"
+      = f.hidden_field :user_id, value: current_user[:id], class: "input form-control"
       .field.form-group
         .control
           = f.label  :room_id

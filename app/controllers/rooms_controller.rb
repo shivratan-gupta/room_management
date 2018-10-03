@@ -74,7 +74,7 @@ class RoomsController < ApplicationController
       if @booking.save
       	if @booking[:status].to_i != 0
       		RoomManagementMailer.booking_confirmation_for_waiting(@user,@booking).deliver
-      		format.html { redirect_to rooms_path, :flash=> {notice: "Room can't be booked, As this time slot is already booked. You are in Queue, Once earlier record get cancelled then you will get the room booking confirmation" }}
+      		format.html { redirect_to rooms_path, :flash=> {notice: "Room can't be booked, As this time slot is already booked. You are in Queue, If earlier record get cancelled then you will get the room booking confirmation" }}
       		format.json { render :index, status: :created, location: rooms_path }
       	else
       		RoomManagementMailer.booking_confirmation(@user).deliver
