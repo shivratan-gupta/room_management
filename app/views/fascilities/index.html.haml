@@ -18,6 +18,6 @@
 = paginate @fascilities, theme: 'my_custom_theme'
 %br/
 - if can? :new, Fascility
-  = link_to 'New facility', new_room_fascility_path
+  = link_to 'New facility', new_room_fascility_path, class: 'btn btn-primary'
 %br/
 = link_to '<--Back', rooms_path, class:'button btn btn-link'

@@ -21,4 +21,4 @@
 = paginate @rooms, theme: 'my_custom_theme'
 %br/
 - if can? :new, Room
-  = link_to 'Add New Room', new_room_path
+  = link_to 'Add New Room', new_room_path, class: 'btn btn-primary'
